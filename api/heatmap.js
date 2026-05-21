@@ -5,14 +5,21 @@ const supabase = createClient(
   process.env.SUPABASE_ANON_KEY
 );
 
-export default async function handler(req, res) {
-  const { data, error } = await supabase
-    .from("heat_points")
-    .select("lat,lng,weight");
-
-  if (error) {
-    return res.status(500).json({ error });
-  }
-
-  return res.status(200).json(data);
+export default function handler(req, res) {
+  return res.status(200).json({
+    url: process.env.SUPABASE_URL,
+    key: !!process.env.SUPABASE_ANON_KEY
+  });
 }
+
+// export default async function handler(req, res) {
+//   const { data, error } = await supabase
+//     .from("heat_points")
+//     .select("lat,lng,weight");
+
+//   if (error) {
+//     return res.status(500).json({ error });
+//   }
+
+//   return res.status(200).json(data);
+// }
